@@ -2,13 +2,13 @@
 Cloudinary
 ==========
 
-Cloudinary is a cloud service that offers a solution to a web application's entire image management pipeline. 
+Cloudinary is a cloud service that offers a solution to a web application's entire image management pipeline.
 
-Easily upload images to the cloud. Automatically perform smart image resizing, cropping and conversion without installing any complex software. Integrate Facebook or Twitter profile image extraction in a snap, in any dimension and style to match your website’s graphics requirements. Images are seamlessly delivered through a fast CDN, and much much more. 
+Easily upload images to the cloud. Automatically perform smart image resizing, cropping and conversion without installing any complex software. Integrate Facebook or Twitter profile image extraction in a snap, in any dimension and style to match your website’s graphics requirements. Images are seamlessly delivered through a fast CDN, and much much more.
 
 Cloudinary offers comprehensive APIs and administration capabilities and is easy to integrate with any web application, existing or new.
 
-Cloudinary provides URL and HTTP based APIs that can be easily integrated with any Web development framework. 
+Cloudinary provides URL and HTTP based APIs that can be easily integrated with any Web development framework.
 
 For Ruby on Rails, Cloudinary provides a GEM for simplifying the integration even further.
 
@@ -50,21 +50,21 @@ Rails 2.x environment.rb:
 You can use the source code of this library directly instead of installing the packaged gem file.
 
     git clone https://github.com/cloudinary/cloudinary_gem.git
-    
+
     # if you haven't installed bundler, do so now with:
     # gem install bundler
-    
+
     bundle install
-    
+
 Finally, fetch the related assets. This process is done automatically when the packaged gem is installed.
 
-    rake cloudinary:fetch_assets 
+    rake cloudinary:fetch_assets
 
 ## Try it right away
 
 Sign up for a [free account](https://cloudinary.com/users/register/free) so you can try out image transformations and seamless image delivery through CDN.
 
-*Note: Replace `demo` in all the following examples with your Cloudinary's `cloud name`.*  
+*Note: Replace `demo` in all the following examples with your Cloudinary's `cloud name`.*
 
 Accessing an uploaded image with the `sample` public ID through a CDN:
 
@@ -78,7 +78,7 @@ Generating a 150x100 version of the `sample` image and downloading it through a 
 
 ![Sample 150x100](https://res.cloudinary.com/demo/image/upload/w_150,h_100,c_fill/sample.jpg "Sample 150x100")
 
-Converting to a 150x100 PNG with rounded corners of 20 pixels: 
+Converting to a 150x100 PNG with rounded corners of 20 pixels:
 
     http://res.cloudinary.com/demo/image/upload/w_150,h_100,c_fill,r_20/sample.png
 
@@ -87,24 +87,24 @@ Converting to a 150x100 PNG with rounded corners of 20 pixels:
 For plenty more transformation options, see our [image transformations documentation](https://cloudinary.com/documentation/image_transformations).
 
 Generating a 120x90 thumbnail based on automatic face detection of the Facebook profile picture of Bill Clinton:
- 
+
     http://res.cloudinary.com/demo/image/facebook/c_thumb,g_face,h_90,w_120/billclinton.jpg
-    
+
 ![Facebook 90x120](https://res.cloudinary.com/demo/image/facebook/c_thumb,g_face,h_90,w_120/billclinton.jpg "Facebook 90x200")
 
-For more details, see our documentation for embedding [Facebook](https://cloudinary.com/documentation/facebook_profile_pictures) and [Twitter](https://cloudinary.com/documentation/twitter_profile_pictures) profile pictures. 
+For more details, see our documentation for embedding [Facebook](https://cloudinary.com/documentation/facebook_profile_pictures) and [Twitter](https://cloudinary.com/documentation/twitter_profile_pictures) profile pictures.
 
 
 ## Usage
 
 ### Configuration
 
-Each request for building a URL of a remote cloud resource must have the `cloud_name` parameter set. 
-Each request to our secure APIs (e.g., image uploads, eager sprite generation) must have the `api_key` and `api_secret` parameters set. See [API, URLs and access identifiers](https://cloudinary.com/documentation/api_and_access_identifiers) for more details.
+Each request for building a URL of a remote cloud resource must have the `cloud_name` parameter set.
+Each request to our secure APIs (e.g., image uploads, eager sprite generation) must have the `api_key` and `api_secret` parameters set. See [Upload API Reference](https://cloudinary.com/documentation/image_upload_api_reference) for more details.
 
 Setting the `cloud_name`, `api_key` and `api_secret` parameters can be done either directly in each call to a Cloudinary method or by globally setting using a YAML configuration file.
 
-Cloudinary looks for an optional file named cloudinary.yml, which should be located under the `config` directory of your Rails project. 
+Cloudinary looks for an optional file named cloudinary.yml, which should be located under the `config` directory of your Rails project.
 It contains settings for each of your deployment environments. You can always override the values specified in `cloudinary.yml` by passing different values in specific Cloudinary calls.
 
 You can [download your customized cloudinary.yml](https://cloudinary.com/console/cloudinary.yml) configuration file using our Management Console.
@@ -130,42 +130,42 @@ The following example generates an image of an uploaded `sample` image while tra
 
     cl_image_tag("sample.jpg", :width => 100, :height => 150, :crop => :fill)
 
-Another example, emedding a smaller version of an uploaded image while generating a 90x90 face detection based thumbnail: 
+Another example, emedding a smaller version of an uploaded image while generating a 90x90 face detection based thumbnail:
 
-    cl_image_tag("woman.jpg", :width => 90, :height => 90, 
+    cl_image_tag("woman.jpg", :width => 90, :height => 90,
                  :crop => :thumb, :gravity => :face)
 
-You can provide either a Facebook name or a numeric ID of a Facebook profile or a fan page.  
-             
+You can provide either a Facebook name or a numeric ID of a Facebook profile or a fan page.
+
 Embedding a Facebook profile to match your graphic design is very simple:
 
-    facebook_profile_image_tag("billclinton.jpg", :width => 90, :height => 130, 
+    facebook_profile_image_tag("billclinton.jpg", :width => 90, :height => 130,
                                :crop => :fill, :gravity => :north_west)
-                           
+
 Same goes for Twitter:
 
     twitter_name_profile_image_tag("billclinton.jpg")
 
-![More](http://res.cloudinary.com/cloudinary/image/upload/see_more_bullet.png) **See [our documentation](https://cloudinary.com/documentation/rails_image_manipulation) for more information about displaying and transforming images in Rails**.                                         
+![More](http://res.cloudinary.com/cloudinary/image/upload/see_more_bullet.png) **See [our documentation](https://cloudinary.com/documentation/rails_image_manipulation) for more information about displaying and transforming images in Rails**.
 
 
 
 ### Upload
 
 Assuming you have your Cloudinary configuration parameters defined (`cloud_name`, `api_key`, `api_secret`), uploading to Cloudinary is very simple.
-    
-The following example uploads a local JPG to the cloud: 
-    
+
+The following example uploads a local JPG to the cloud:
+
     Cloudinary::Uploader.upload("my_picture.jpg")
-        
+
 The uploaded image is assigned a randomly generated public ID. The image is immediately available for download through a CDN:
 
     cl_image_tag("abcfrmo8zul1mafopawefg.jpg")
-        
+
     http://res.cloudinary.com/demo/image/upload/abcfrmo8zul1mafopawefg.jpg
 
-You can also specify your own public ID:    
-    
+You can also specify your own public ID:
+
     Cloudinary::Uploader.upload("http://www.example.com/image.jpg", :public_id => 'sample_remote')
 
     cl_image_tag("sample_remote.jpg")
@@ -181,11 +181,11 @@ You can also specify your own public ID:
 **Note:** Starting from version 1.1.0 the CarrierWave database format has changed to include the resource type and storage type. The new functionality
 is backward compatible with the previous format. To use the old format override `use_extended_identifier?` in the Uploader and return `false`.
 
-Cloudinary's Ruby GEM includes an optional plugin for [CarrierWave](https://github.com/jnicklas/carrierwave). If you already use CarrierWave, simply include `Cloudinary::CarrierWave` to switch to cloud storage and image processing in the cloud. 
+Cloudinary's Ruby GEM includes an optional plugin for [CarrierWave](https://github.com/jnicklas/carrierwave). If you already use CarrierWave, simply include `Cloudinary::CarrierWave` to switch to cloud storage and image processing in the cloud.
 
-    class PictureUploader < CarrierWave::Uploader::Base    
-        include Cloudinary::CarrierWave        
-        ...  
+    class PictureUploader < CarrierWave::Uploader::Base
+        include Cloudinary::CarrierWave
+        ...
     end
 
 ![More](http://res.cloudinary.com/cloudinary/image/upload/see_more_bullet.png) **For more details on CarrierWave integration see [our documentation](https://cloudinary.com/documentation/rails_carrierwave)**.
@@ -203,7 +203,7 @@ During the installation or update of the Cloudinary GEM, the latest Cloudinary J
 To use the JavaScript files you need to include them in your application, for example:
 
 ```
-<%= javascript_include_tag("jquery.ui.widget", "jquery.iframe-transport", 
+<%= javascript_include_tag("jquery.ui.widget", "jquery.iframe-transport",
                            "jquery.fileupload", "jquery.cloudinary") %>
 ```
 
@@ -242,7 +242,7 @@ $(function() {
 
 ### Samples
 
-You can find our simple and ready-to-use samples projects, along with documentation in the [samples folder](https://github.com/cloudinary/cloudinary_gem/tree/master/samples). 
+You can find our simple and ready-to-use samples projects, along with documentation in the [samples folder](https://github.com/cloudinary/cloudinary_gem/tree/master/samples).
 Please consult with the [README file](https://github.com/cloudinary/cloudinary_gem/blob/master/samples/README.md), for usage and explanations.
 
 ## Additional resources ##########################################################
@@ -272,6 +272,6 @@ Impact the product, hear updates, test drive new features and more! Join [here](
 
 ## License #######################################################################
 
-Released under the MIT license. 
+Released under the MIT license.
 
 
